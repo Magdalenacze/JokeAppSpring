@@ -19,7 +19,7 @@ class JokeServiceImplTest {
         List<JokeProvider> emptyProvidersList = List.of();
 
         //when
-        Executable e = () -> new JokeServiceImpl(emptyProvidersList);
+        Executable e = () -> new JokeServiceImpl(emptyProvidersList, 3);
 
         //then
         assertThrows(RuntimeException.class, e);
@@ -42,7 +42,7 @@ class JokeServiceImplTest {
                 return null;
             }
         });
-        JokeServiceImpl jokeService = new JokeServiceImpl(jokeProviders);
+        JokeServiceImpl jokeService = new JokeServiceImpl(jokeProviders, 3);
 
         //when
         Joke jokeFromService = jokeService.getJoke();
@@ -58,7 +58,7 @@ class JokeServiceImplTest {
         Joke joke = new Joke("a1", "a2");
 
         List<JokeProvider> jokeProviders = provideSingleProviderReturningJokeByCategory(joke);
-        JokeServiceImpl jokeService = new JokeServiceImpl(jokeProviders);
+        JokeServiceImpl jokeService = new JokeServiceImpl(jokeProviders, 3);
 
         //when
         Joke jokeFromService = jokeService.getJoke("whatever");
@@ -76,7 +76,7 @@ class JokeServiceImplTest {
 
         List<JokeProvider> jokeProviders = provideSingleProviderReturningJokeByCategory(jokeA);
         jokeProviders.addAll(provideSingleProviderReturningJokeByCategory(jokeB));
-        JokeServiceImpl jokeService = new JokeServiceImpl(jokeProviders);
+        JokeServiceImpl jokeService = new JokeServiceImpl(jokeProviders, 3);
 
         //when
         List<Joke> jokes = new ArrayList<>();
@@ -111,6 +111,4 @@ class JokeServiceImplTest {
         });
         return jokeProviders;
     }
-
-
 }
