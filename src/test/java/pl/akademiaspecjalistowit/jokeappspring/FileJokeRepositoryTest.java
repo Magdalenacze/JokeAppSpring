@@ -18,7 +18,8 @@ class FileJokeRepositoryTest {
     @Test
     @Disabled
     void shouldReadJokeFromFile() {
-        FileJokeRepository fileJokeRepository = new FileJokeRepository("src/main/resources/jokes.json");
+        FileJokeRepository fileJokeRepository = new FileJokeRepository("src/main/resources/jokes.json",
+                new ObjectMapper());
 
         //when
         List<Joke> allJokes = fileJokeRepository.getAllJokes();
