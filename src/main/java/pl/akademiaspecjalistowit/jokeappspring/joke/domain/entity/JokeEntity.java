@@ -17,13 +17,14 @@ public class JokeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "tech_id")
     private UUID technicalId;
+
     private String content;
     private String category;
 
-    public JokeEntity(Long id, UUID technicalId, String content, String category) {
-        this.id = id;
+    public JokeEntity(UUID technicalId, String content, String category) {
         this.technicalId = technicalId;
         this.content = content;
         this.category = category;

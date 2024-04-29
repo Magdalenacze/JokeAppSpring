@@ -7,18 +7,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.jokeappspring.joke.domain.entity.JokeEntity;
 import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository.JokeJpaRepository;
 import pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository.JokeRepository;
 import pl.akademiaspecjalistowit.jokeappspring.joke.dto.JokeMapper;
 
 @Service
 public class JokeDataProvider implements JokeProvider {
 
-    private final List<JokeRepository> jokeRepositories;
+    private final List<JokeJpaRepository> jokeRepositories;
     private final JokeMapper jokeMapper;
     private final Random rand;
     private static long counter;
 
-    public JokeDataProvider(List<JokeRepository> jokeRepositories, JokeMapper jokeMapper,
+    public JokeDataProvider(List<JokeJpaRepository> jokeRepositories, JokeMapper jokeMapper,
                             Random rand, @Value("0") long counter) {
         this.jokeRepositories = jokeRepositories;
         this.jokeMapper = jokeMapper;
@@ -28,21 +29,22 @@ public class JokeDataProvider implements JokeProvider {
 
     @Override
     public Joke getJoke() {
-        List<Joke> anyJokes = getJokeRepository().getAllJokes();
-        return anyJokes.get(rand.nextInt(anyJokes.size()));
+        List<JokeEntity> anyJokes = getJokeRepository().findAll();
+        return jokeMapper.fromEntity(anyJokes.get(rand.nextInt(anyJokes.size())));
     }
 
     @Override
     public Joke getJokeByCategory(String category) {
-        List<Joke> jokesByCategory =
-                getJokeRepository().getAllByCategory(category);
+        List<JokeEntity> jokesByCategory =
+                getJokeRepository().findAllByCategory(category);
         if (jokesByCategory.isEmpty()) {
             throw new JokeDataProviderException("No joke for the selected category!");
         }
-        return jokesByCategory.get(rand.nextInt(jokesByCategory.size()));
+        JokeEntity jokeEntity = jokesByCategory.get(rand.nextInt(jokesByCategory.size()));
+        return jokeMapper.fromEntity(jokeEntity);
     }
 
-    private JokeRepository getJokeRepository() {
+    private JokeJpaRepository getJokeRepository() {
         return jokeRepositories.get((int) counter++ % jokeRepositories.size());
     }
 }

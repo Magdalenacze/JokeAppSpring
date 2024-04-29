@@ -4,15 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
-import pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository.FileJokeRepository;
-import pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository.InMemoryJokeRepository;
-import pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository.JokeRepository;
 import pl.akademiaspecjalistowit.jokeappspring.joke.dto.JokeMapper;
-import pl.akademiaspecjalistowit.jokeappspring.joke.service.JokeService;
-import pl.akademiaspecjalistowit.jokeappspring.joke.service.JokeServiceImpl;
-import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeApiProvider;
-import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeDataProvider;
-import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeProvider;
 
 import java.net.http.HttpClient;
 import java.util.List;
@@ -60,24 +52,5 @@ public class JokeBeans {
                 new Joke("Why does a Polish national team fan need a scarf? " +
                         "So that he would have something to wipe his tears with",
                         "Sport"));
-    }
-
-    @Bean
-    public List<JokeRepository> jokeRepositories() {
-        return List.of(
-                new InMemoryJokeRepository(jokes()),
-                new FileJokeRepository("src/main/resources/jokes.json", objectMapper()));
-    }
-
-    @Bean
-    public List<JokeProvider> jokeProviders() {
-        return List.of(
-                new JokeApiProvider(httpClient(), "https://v2.jokeapi.dev/joke/Any", "https://v2.jokeapi.dev/joke/"),
-                new JokeDataProvider(jokeRepositories(), jokeMapper(), rand(), 0));
-    }
-
-    @Bean
-    public JokeService jokeService() {
-        return new JokeServiceImpl(jokeProviders(), 0);
     }
 }
