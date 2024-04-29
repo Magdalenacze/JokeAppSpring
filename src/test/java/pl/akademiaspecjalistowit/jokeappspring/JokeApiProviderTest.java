@@ -7,7 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
 import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeApiProvider;
 import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeProvider;
 
@@ -23,7 +23,9 @@ class JokeApiProviderTest {
         Mockito.when(mockHttpClient.send(Mockito.any(),Mockito.any()))
             .thenReturn(httpResponseMock);
 
-        JokeProvider jokeApiProvider = new JokeApiProvider(mockHttpClient);
+        JokeProvider jokeApiProvider = new JokeApiProvider(mockHttpClient,
+                "https://v2.jokeapi.dev/joke/Any",
+                "https://v2.jokeapi.dev/joke/");
 
         //when
         Joke joke = jokeApiProvider.getJoke();
@@ -52,6 +54,4 @@ class JokeApiProviderTest {
             "    \"lang\": \"en\"\n" +
             "}";
     }
-
-
 }

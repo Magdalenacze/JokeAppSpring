@@ -1,23 +1,25 @@
-package pl.akademiaspecjalistowit.jokeappspring.joke.model;
+package pl.akademiaspecjalistowit.jokeappspring.joke.domain.model;
+
+import lombok.AllArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+@AllArgsConstructor
 public class Joke implements Serializable {
 
     private UUID id;
     private String content;
     private String category;
 
-    public Joke(String category, String content) {
-        this.id = UUID.randomUUID();
+    public Joke(String content, String category) {
         this.content = content;
         this.category = category;
     }
 
     private Joke(){
-
+        this.id = UUID.randomUUID();
     }
 
     public String getCategory() {
