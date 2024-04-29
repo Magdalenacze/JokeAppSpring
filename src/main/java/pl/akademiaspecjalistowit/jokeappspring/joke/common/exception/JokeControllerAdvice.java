@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.jokeappspring.controller;
+package pl.akademiaspecjalistowit.jokeappspring.joke.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

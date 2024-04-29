@@ -2,6 +2,18 @@ spring:
   application:
     name: JokeAppSpring
 
+  h2:
+    console.enabled: true
+
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
 jokes:
   files:
     pathToJokeFile: src/main/resources/jokes.json

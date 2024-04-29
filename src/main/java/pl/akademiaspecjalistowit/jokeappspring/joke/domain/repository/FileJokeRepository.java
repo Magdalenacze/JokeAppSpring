@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.jokeappspring.joke.repository;
+package pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,12 +11,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
 
 @Repository
 public class FileJokeRepository implements JokeRepository {
 
     private final Map<String, List<Joke>> jokesWithCategories;
+    private final ObjectMapper objectMapper;
 
     public FileJokeRepository(@Value("${jokes.files.pathToJokeFile}") String pathToJokesFile,
                               ObjectMapper objectMapper) {
@@ -30,6 +31,7 @@ public class FileJokeRepository implements JokeRepository {
         } catch (IOException e) {
             throw new RuntimeException("Cannot deserialize Jokes from file!", e);
         }
+        this.objectMapper = objectMapper;
     }
 
     @Override

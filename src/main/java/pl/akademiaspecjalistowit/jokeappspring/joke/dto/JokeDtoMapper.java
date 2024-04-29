@@ -1,7 +1,6 @@
-package pl.akademiaspecjalistowit.jokeappspring.joke.mapper;
+package pl.akademiaspecjalistowit.jokeappspring.joke.dto;
 
-import pl.akademiaspecjalistowit.jokeappspring.joke.dto.JokeDto;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
 
 public interface JokeDtoMapper {
 

@@ -1,11 +1,11 @@
-package pl.akademiaspecjalistowit.jokeappspring.joke.repository;
+package pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository;
 
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
 
 @Repository
 public class InMemoryJokeRepository implements JokeRepository {

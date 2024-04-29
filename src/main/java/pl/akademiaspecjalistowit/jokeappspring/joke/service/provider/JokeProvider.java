@@ -1,6 +1,6 @@
 package pl.akademiaspecjalistowit.jokeappspring.joke.service.provider;
 
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
 
 public interface JokeProvider {
 

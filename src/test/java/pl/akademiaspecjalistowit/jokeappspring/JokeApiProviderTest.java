@@ -7,7 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
 import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeApiProvider;
 import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeProvider;
 

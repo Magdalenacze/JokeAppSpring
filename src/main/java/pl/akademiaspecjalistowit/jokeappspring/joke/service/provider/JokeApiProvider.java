@@ -1,6 +1,5 @@
 package pl.akademiaspecjalistowit.jokeappspring.joke.service.provider;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,8 +12,8 @@ import java.net.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.akademiaspecjalistowit.jokeappspring.joke.dto.JokeDto;
-import pl.akademiaspecjalistowit.jokeappspring.joke.mapper.JokeDtoMapper;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.dto.JokeDtoMapper;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
 
 @Service
 public class JokeApiProvider implements JokeProvider {

@@ -3,8 +3,10 @@ package pl.akademiaspecjalistowit.jokeappspring.joke.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository.JokeJpaRepository;
 import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeDataProviderException;
 import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeProvider;
 
@@ -15,7 +17,7 @@ public class JokeServiceImpl implements JokeService {
     private static long counter;
 
     public JokeServiceImpl(List<JokeProvider> jokeProviders,
-                           @Value("${application.algorithms.roundRobin.counter}") long counter) {
+                           @Value("0") long counter) {
         if (jokeProviders == null || jokeProviders.isEmpty()) {
             throw new RuntimeException("Required at least one JokeProvider for the application to run");
         }

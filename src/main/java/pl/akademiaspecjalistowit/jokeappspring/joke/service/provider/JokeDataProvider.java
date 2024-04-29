@@ -5,20 +5,23 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
-import pl.akademiaspecjalistowit.jokeappspring.joke.repository.JokeRepository;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.entity.JokeEntity;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository.JokeRepository;
+import pl.akademiaspecjalistowit.jokeappspring.joke.dto.JokeMapper;
 
 @Service
 public class JokeDataProvider implements JokeProvider {
 
     private final List<JokeRepository> jokeRepositories;
+    private final JokeMapper jokeMapper;
     private final Random rand;
     private static long counter;
 
-    public JokeDataProvider(List<JokeRepository> jokeRepositories, Random rand,
-                            @Value("${application.algorithms.roundRobin.counter}")
-                            long counter) {
+    public JokeDataProvider(List<JokeRepository> jokeRepositories, JokeMapper jokeMapper,
+                            Random rand, @Value("0") long counter) {
         this.jokeRepositories = jokeRepositories;
+        this.jokeMapper = jokeMapper;
         this.rand = rand;
         this.counter = counter;
     }
@@ -32,7 +35,7 @@ public class JokeDataProvider implements JokeProvider {
     @Override
     public Joke getJokeByCategory(String category) {
         List<Joke> jokesByCategory =
-            getJokeRepository().getAllByCategory(category);
+                getJokeRepository().getAllByCategory(category);
         if (jokesByCategory.isEmpty()) {
             throw new JokeDataProviderException("No joke for the selected category!");
         }

@@ -10,8 +10,8 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
-import pl.akademiaspecjalistowit.jokeappspring.joke.repository.FileJokeRepository;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository.FileJokeRepository;
 
 class FileJokeRepositoryTest {
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
 import pl.akademiaspecjalistowit.jokeappspring.joke.service.JokeServiceImpl;
 import pl.akademiaspecjalistowit.jokeappspring.joke.service.provider.JokeProvider;
 
