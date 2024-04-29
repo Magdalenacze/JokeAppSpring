@@ -10,15 +10,16 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
-import pl.akademiaspecjalistowit.jokeappspring.joke.repository.FileJokeRepository;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository.FileJokeRepository;
 
 class FileJokeRepositoryTest {
 
     @Test
     @Disabled
     void shouldReadJokeFromFile() {
-        FileJokeRepository fileJokeRepository = new FileJokeRepository("src/main/resources/jokes.json");
+        FileJokeRepository fileJokeRepository = new FileJokeRepository("src/main/resources/jokes.json",
+                new ObjectMapper());
 
         //when
         List<Joke> allJokes = fileJokeRepository.getAllJokes();

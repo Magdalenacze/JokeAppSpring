@@ -1,35 +1,32 @@
-package pl.akademiaspecjalistowit.jokeappspring.joke.model;
+package pl.akademiaspecjalistowit.jokeappspring.joke.domain.entity;
 
-import java.io.Serializable;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.Objects;
 import java.util.UUID;
 
-public class Joke implements Serializable {
+@Entity
+@Getter
+@Table(name = "JOKE")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class JokeEntity {
 
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(name = "tech_id")
+    private UUID technicalId;
     private String content;
     private String category;
 
-    public Joke(String category, String content) {
-        this.id = UUID.randomUUID();
+    public JokeEntity(Long id, UUID technicalId, String content, String category) {
+        this.id = id;
+        this.technicalId = technicalId;
         this.content = content;
         this.category = category;
-    }
-
-    private Joke(){
-
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     @Override
@@ -45,7 +42,7 @@ public class Joke implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Joke joke = (Joke) o;
+        JokeEntity joke = (JokeEntity) o;
         return Objects.equals(content, joke.content) && Objects.equals(category, joke.category);
     }
 

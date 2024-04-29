@@ -1,4 +1,4 @@
-package pl.akademiaspecjalistowit.jokeappspring.joke.repository;
+package pl.akademiaspecjalistowit.jokeappspring.joke.domain.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,30 +8,37 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import pl.akademiaspecjalistowit.jokeappspring.joke.model.Joke;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+import pl.akademiaspecjalistowit.jokeappspring.joke.domain.model.Joke;
+
+@Repository
 public class FileJokeRepository implements JokeRepository {
 
     private final Map<String, List<Joke>> jokesWithCategories;
+    private final ObjectMapper objectMapper;
 
-    public FileJokeRepository(String pathToJokesFile) {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public FileJokeRepository(@Value("${jokes.files.pathToJokeFile}") String pathToJokesFile,
+                              ObjectMapper objectMapper) {
         try {
             jokesWithCategories =
                 objectMapper.readValue(Paths.get(pathToJokesFile).toFile(), new TypeReference<List<Joke>>() {
                 })
-                    .stream().collect(Collectors.groupingBy(Joke::getCategory));
+                    .stream()
+                        .collect(Collectors.groupingBy(Joke::getCategory));
 
         } catch (IOException e) {
-            throw new RuntimeException("cannot deserialize Jokes from file", e);
+            throw new RuntimeException("Cannot deserialize Jokes from file!", e);
         }
+        this.objectMapper = objectMapper;
     }
 
     @Override
     public List<Joke> getAllJokes() {
         return jokesWithCategories.entrySet()
             .stream()
-            .flatMap(e->e.getValue().stream())
+            .flatMap(e -> e.getValue().stream())
             .collect(Collectors.toList());
     }
 
